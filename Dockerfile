@@ -2,7 +2,11 @@ FROM ubuntu:18.04
 MAINTAINER Alise Ponsero <aponsero@email.arizona.edu>
 LABEL Description "This Dockerfile is for MARVEL-0.2"
 
-RUN apt-get update && apt-get install -y wget python3.7
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev wget\
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
@@ -13,14 +17,15 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 
 ENV PATH /opt/conda/bin:$PATH
 
-RUN conda config --add channels conda-forge 
-RUN conda config --add channels defaults 
+RUN conda config --add channels conda-forge
+RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
-RUN conda install -y prokka hmmer numpy scipy biopython scikit-learn 
+RUN conda install -y prokka hmmer numpy scipy biopython scikit-learn
 
 COPY MARVEL/ /usr/bin
 RUN chmod +x  /usr/bin/download_and_set_models.py
 RUN chmod +x /usr/bin/generate_bins_from_reads.py
-RUN python /usr/bin/download_and_set_models.py
+RUN python3 /usr/bin/download_and_set_models.py
 
-CMD python /usr/bin/generate_bins_from_reads.py
+CMD python3 /usr/bin/generate_bins_from_reads.py
+
