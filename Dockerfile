@@ -19,8 +19,8 @@ RUN conda config --add channels bioconda
 RUN conda install -y prokka hmmer numpy scipy biopython scikit-learn 
 
 COPY MARVEL/ /usr/bin
-RUN python /usr/bin/download_and_set_models.py
+RUN chmod +x  /usr/bin/download_and_set_models.py
 
 RUN chmod +x /usr/bin/generate_bins_from_reads.py
 
-ENTRYPOINT [ "generate_bins_from_reads.py" ]
+ENTRYPOINT [ "download_and_set_models.py", "generate_bins_from_reads.py" ]
