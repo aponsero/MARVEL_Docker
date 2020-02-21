@@ -23,4 +23,4 @@ RUN chmod +x  /usr/bin/download_and_set_models.py
 RUN chmod +x /usr/bin/generate_bins_from_reads.py
 RUN python3 /usr/bin/download_and_set_models.py
 
-CMD [ "/usr/bin/generate_bins_from_reads.py" ]
+CMD python3 /usr/bin/generate_bins_from_reads.py
