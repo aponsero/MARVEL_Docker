@@ -21,6 +21,6 @@ RUN conda install -y prokka hmmer numpy scipy biopython scikit-learn
 COPY MARVEL/ /usr/bin
 RUN chmod +x  /usr/bin/download_and_set_models.py
 RUN chmod +x /usr/bin/generate_bins_from_reads.py
-
+RUN python3 /usr/bin/download_and_set_models.py
 
 CMD [ "/usr/bin/generate_bins_from_reads.py" ]
